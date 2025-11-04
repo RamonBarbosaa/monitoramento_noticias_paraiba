@@ -10,7 +10,7 @@ jobs:
   fetch-news:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # << estava desalinhado
+      contents: write  # necessário para push
 
     steps:
       - name: Checkout repo
@@ -30,15 +30,14 @@ jobs:
         run: |
           python main.py
 
-            - name: Commit and push CSV if changed
+      - name: Commit and push CSV if changed
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "github-actions"
           if [ -n "$(git status --porcelain)" ]; then
-        git add noticias_paraiba.csv
-        git commit -m "Atualiza notícias - $(date -u +'%Y-%m-%d')"
-        git pull --rebase origin main  # puxa alterações remotas
-        git push
-    else
-      echo "No changes to commit"
-    fi
+            git add noticias_paraiba.csv
+            git commit -m "Atualiza notícias - $(date -u +'%Y-%m-%d')"
+            git pull --rebase origin main
+            git push
+          else
+            echo "No changes to commit"
