@@ -2,15 +2,16 @@ name: Daily News Fetch - Paraíba
 
 on:
   schedule:
-    # rodar todo dia às 07:00 Fortaleza (UTC-3) -> 10:00 UTC
+    # Rodar todo dia às 07:00 Fortaleza (UTC-3) -> 10:00 UTC
     - cron: '0 10 * * *'
-  workflow_dispatch: {}  # permite trigger manual
+  workflow_dispatch:  # permite trigger manual
 
 jobs:
   fetch-news:
     runs-on: ubuntu-latest
     permissions:
-  contents: write
+      contents: write  # << estava desalinhado
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
